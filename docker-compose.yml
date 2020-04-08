@@ -1,8 +1,25 @@
 version: '3.3'
+
 services:
   redis:
     image: "redis:4.0-alpine"
     hostname: "redis"
     restart: always
+
+  websocket_1:
+    build:
+      context: .
+    command: sh -c 'chatter server --redis-addr "redis:6379" --ws-address "0.0.0.0:9092"'
+    links:
+      - redis
     ports:
-      - "6380:6379"
+      - "9092:9092"
+
+  websocket_2:
+    build:
+      context: .
+    command: sh -c 'chatter server --redis-addr "redis:6379" --ws-address "0.0.0.0:9091"'
+    links:
+      - redis
+    ports:
+      - "9091:9091"
