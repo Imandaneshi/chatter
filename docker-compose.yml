@@ -1,0 +1,8 @@
+version: '3.3'
+services:
+  redis:
+    image: "redis:4.0-alpine"
+    hostname: "redis"
+    restart: always
+    ports:
+      - "6380:6379"
